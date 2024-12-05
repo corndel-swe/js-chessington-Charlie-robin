@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "mocha 'tests/**/*.spec.js'",
+    "test:queen": "mocha 'tests/**/queen.spec.js'",
     "test:d1e1": "mocha tests/exercises/day-1/exercise-1.test.js",
     "test:d1e2": "mocha tests/exercises/day-1/exercise-2.test.js",
     "test:d1e3": "mocha tests/exercises/day-1/exercise-3.test.js",

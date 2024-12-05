@@ -1,17 +1,21 @@
-import Square from '../square.js'
-import Piece from './piece.js'
+import Square from "../square.js";
+import Piece from "./piece.js";
 
-export default class King {
+export default class King extends Piece {
   constructor(player) {
-    this.player = player
+    super(player, true);
   }
 
-  getAvailableMoves(board) {
-    return []
-  }
-
-  moveTo(board, newSquare) {
-    const currentSquare = board.findPiece(this)
-    board.movePiece(currentSquare, newSquare)
+  getDirections() {
+    return [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+      [1, 1],
+      [1, -1],
+      [-1, 1],
+      [-1, -1],
+    ];
   }
 }
