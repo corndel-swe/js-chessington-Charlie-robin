@@ -1,32 +1,48 @@
-import Square from '../square.js'
-import Player from '../player.js'
-import Piece from './piece.js'
+import Square from "../square.js";
+import Player from "../player.js";
+import Piece from "./piece.js";
 
 export default class Pawn {
   constructor(player) {
-    this.player = player
+    this.player = player;
   }
 
   getAvailableMoves(board) {
-    // get the square currently occupied by the pawn
-    let location = board.findPiece(this)
+    let location = board.findPiece(this);
 
-    // the list of valid moves
-    let moves = []
+    const direction = this.player === Player.WHITE ? 1 : -1;
 
-    if (this.player === Player.WHITE) {
-      // white pawns can move "up" by one
-      moves.push(new Square(location.row + 1, location.col))
-    } else {
-      // black pawns can move "down" by one
-      moves.push(new Square(location.row - 1, location.col))
+    const next = new Square(location.row + direction, location.col);
+
+    const moves = this.getDiagonalMoves(board, next);
+
+    if (board.isSquareOffBoard(next) || board.getPiece(next) !== undefined) {
+      return moves;
     }
 
-    return moves
+    moves.push(next);
+
+    if (location.row == 6 || location.row == 1) {
+      const afterNext = new Square(location.row + direction * 2, location.col);
+      if (board.getPiece(afterNext) === undefined) {
+        moves.push(afterNext);
+      }
+    }
+
+    return moves;
   }
 
   moveTo(board, newSquare) {
-    const currentSquare = board.findPiece(this)
-    board.movePiece(currentSquare, newSquare)
+    const currentSquare = board.findPiece(this);
+    board.movePiece(currentSquare, newSquare);
+  }
+
+  getDiagonalMoves(board, next) {
+    return [
+      new Square(next.row, next.col + 1),
+      new Square(next.row, next.col - 1),
+    ].filter(
+      (c) => !board.isSquareOffBoard(c) && board.canTake(c, this.player)
+    );
   }
 }

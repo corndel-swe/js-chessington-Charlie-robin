@@ -1,20 +1,20 @@
-import { strict as assert } from 'assert'
-import Rook from '../../../src/models/pieces/rook.js'
-import Pawn from '../../../src/models/pieces/pawn.js'
-import King from '../../../src/models/pieces/king.js'
-import Board from '../../../src/models/board.js'
-import Player from '../../../src/models/player.js'
-import Square from '../../../src/models/square.js'
+import { strict as assert } from "assert";
+import Rook from "../../../src/models/pieces/rook.js";
+import Pawn from "../../../src/models/pieces/pawn.js";
+import King from "../../../src/models/pieces/king.js";
+import Board from "../../../src/models/board.js";
+import Player from "../../../src/models/player.js";
+import Square from "../../../src/models/square.js";
 
-describe('Rook', () => {
-  let board
-  beforeEach(() => (board = new Board()))
+describe("Rook", () => {
+  let board;
+  beforeEach(() => (board = new Board()));
 
-  it('can move laterally', () => {
-    const rook = new Rook(Player.WHITE)
-    board.setPiece(new Square(1, 2), rook)
+  it("can move laterally", () => {
+    const rook = new Rook(Player.WHITE);
+    board.setPiece(new Square(1, 2), rook);
 
-    const moves = rook.getAvailableMoves(board)
+    const moves = rook.getAvailableMoves(board);
 
     const expectedMoves = [
       // Horizontal
@@ -32,88 +32,88 @@ describe('Rook', () => {
       new Square(4, 2),
       new Square(5, 2),
       new Square(6, 2),
-      new Square(7, 2)
-    ]
+      new Square(7, 2),
+    ];
 
-    assert.deepEqual(new Set(moves), new Set(expectedMoves))
-  })
+    assert.deepEqual(new Set(moves), new Set(expectedMoves));
+  });
 
-  it('cannot make any other moves', () => {
-    const rook = new Rook(Player.WHITE)
-    board.setPiece(new Square(1, 2), rook)
+  it("cannot make any other moves", () => {
+    const rook = new Rook(Player.WHITE);
+    board.setPiece(new Square(1, 2), rook);
 
-    const moves = rook.getAvailableMoves(board)
+    const moves = rook.getAvailableMoves(board);
 
-    assert.equal(moves.length, 14, '`moves` does not have length 14')
-  })
+    assert.equal(moves.length, 14, "`moves` does not have length 14");
+  });
 
-  xit('cannot move through friendly pieces', () => {
-    const rook = new Rook(Player.WHITE)
-    const friendlyPiece = new Pawn(Player.WHITE)
-    board.setPiece(new Square(4, 4), rook)
-    board.setPiece(new Square(4, 6), friendlyPiece)
+  it("cannot move through friendly pieces", () => {
+    const rook = new Rook(Player.WHITE);
+    const friendlyPiece = new Pawn(Player.WHITE);
+    board.setPiece(new Square(4, 4), rook);
+    board.setPiece(new Square(4, 6), friendlyPiece);
 
-    const moves = rook.getAvailableMoves(board)
-
-    assert(
-      !moves.some(square => equare.equals(new Square(4, 7))),
-      '`moves` contains the square (4, 7)'
-    )
-  })
-
-  xit('cannot move through opposing pieces', () => {
-    const rook = new Rook(Player.WHITE)
-    const opposingPiece = new Pawn(Player.BLACK)
-    board.setPiece(new Square(4, 4), rook)
-    board.setPiece(new Square(4, 6), opposingPiece)
-
-    const moves = rook.getAvailableMoves(board)
+    const moves = rook.getAvailableMoves(board);
 
     assert(
-      !moves.some(square => square.equals(new Square(4, 7))),
-      '`moves` contains the square (4, 7)'
-    )
-  })
+      !moves.some((square) => square.equals(new Square(4, 7))),
+      "`moves` contains the square (4, 7)"
+    );
+  });
 
-  xit('can take opposing pieces', () => {
-    const rook = new Rook(Player.WHITE)
-    const opposingPiece = new Pawn(Player.BLACK)
-    board.setPiece(new Square(4, 4), rook)
-    board.setPiece(new Square(4, 6), opposingPiece)
+  it("cannot move through opposing pieces", () => {
+    const rook = new Rook(Player.WHITE);
+    const opposingPiece = new Pawn(Player.BLACK);
+    board.setPiece(new Square(4, 4), rook);
+    board.setPiece(new Square(4, 6), opposingPiece);
 
-    const moves = rook.getAvailableMoves(board)
-
-    assert(
-      moves.some(square => square.equals(new Square(4, 6))),
-      '`moves` does not contain the square (4, 6)'
-    )
-  })
-
-  xit('cannot take the opposing king', () => {
-    const rook = new Rook(Player.WHITE)
-    const opposingKing = new King(Player.BLACK)
-    board.setPiece(new Square(4, 4), rook)
-    board.setPiece(new Square(4, 6), opposingKing)
-
-    const moves = rook.getAvailableMoves(board)
+    const moves = rook.getAvailableMoves(board);
 
     assert(
-      !moves.some(square => square.equals(new Square(4, 6))),
-      '`moves` contains the square (4, 6)'
-    )
-  })
+      !moves.some((square) => square.equals(new Square(4, 7))),
+      "`moves` contains the square (4, 7)"
+    );
+  });
 
-  xit('cannot take friendly pieces', () => {
-    const rook = new Rook(Player.WHITE)
-    const friendlyPiece = new Pawn(Player.WHITE)
-    board.setPiece(new Square(4, 4), rook)
-    board.setPiece(new Square(4, 6), friendlyPiece)
+  it("can take opposing pieces", () => {
+    const rook = new Rook(Player.WHITE);
+    const opposingPiece = new Pawn(Player.BLACK);
+    board.setPiece(new Square(4, 4), rook);
+    board.setPiece(new Square(4, 6), opposingPiece);
 
-    const moves = rook.getAvailableMoves(board)
+    const moves = rook.getAvailableMoves(board);
 
     assert(
-      !moves.some(square => square.equals(new Square(4, 6))),
-      '`moves` contains the square (4, 6)'
-    )
-  })
-})
+      moves.some((square) => square.equals(new Square(4, 6))),
+      "`moves` does not contain the square (4, 6)"
+    );
+  });
+
+  it("cannot take the opposing king", () => {
+    const rook = new Rook(Player.WHITE);
+    const opposingKing = new King(Player.BLACK);
+    board.setPiece(new Square(4, 4), rook);
+    board.setPiece(new Square(4, 6), opposingKing);
+
+    const moves = rook.getAvailableMoves(board);
+
+    assert(
+      !moves.some((square) => square.equals(new Square(4, 6))),
+      "`moves` contains the square (4, 6)"
+    );
+  });
+
+  it("cannot take friendly pieces", () => {
+    const rook = new Rook(Player.WHITE);
+    const friendlyPiece = new Pawn(Player.WHITE);
+    board.setPiece(new Square(4, 4), rook);
+    board.setPiece(new Square(4, 6), friendlyPiece);
+
+    const moves = rook.getAvailableMoves(board);
+
+    assert(
+      !moves.some((square) => square.equals(new Square(4, 6))),
+      "`moves` contains the square (4, 6)"
+    );
+  });
+});

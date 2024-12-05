@@ -1,17 +1,16 @@
-import Square from '../square.js'
-import Piece from './piece.js'
+import Piece from "./piece.js";
 
-export default class Rook {
+export default class Rook extends Piece {
   constructor(player) {
-    this.player = player
+    super(player, false);
   }
 
-  getAvailableMoves(board) {
-    return []
-  }
-
-  moveTo(board, newSquare) {
-    const currentSquare = board.findPiece(this)
-    board.movePiece(currentSquare, newSquare)
+  getDirections() {
+    return [
+      [0, -1],
+      [0, 1],
+      [-1, 0],
+      [1, 0],
+    ];
   }
 }
