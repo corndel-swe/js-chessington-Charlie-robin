@@ -1,49 +1,36 @@
 export class Rectangle {
-  #width
-  #height
+  #width;
+  #height;
 
   constructor(width, height) {
-    this.#width = width
-    this.#height = height
+    this.#width = width;
+    this.#height = height;
   }
 
   area() {
-    return this.#width * this.#height
+    return this.#width * this.#height;
   }
 
   perimeter() {
-    return 2 * (this.#width + this.#height)
+    return 2 * (this.#width + this.#height);
   }
 
   width() {
-    return this.#width
+    return this.#width;
   }
 
   height() {
-    return this.#height
+    return this.#height;
   }
 }
 
-export class Square {
-  #side
+export class Square extends Rectangle {
+  #side;
 
   constructor(side) {
-    this.#side = side
+    super(side, side);
+    this.#side = side;
   }
 
-  area() {
-    return this.#side * this.#side
-  }
 
-  perimeter() {
-    return 4 * this.#side
-  }
-
-  width() {
-    return this.#side
-  }
-
-  height() {
-    return this.#side
-  }
 }
